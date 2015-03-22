@@ -5,7 +5,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-03-22T20:41:03+03:00</updated>
+<updated>2015-03-22T20:45:38+03:00</updated>
 <id>/</id>
 <author>
   <name>Rodion</name>
@@ -282,7 +282,7 @@
     <uri></uri>
     <email>rodion.zheludkov@gmail.com</email>
   </author>
-  <content type="html">&lt;p&gt;The whole blog is static using &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; platform. You can check raw content here &lt;a href=&quot;https://github.com/rodion-zheludkov/rodion-zheludkov.github.io&quot;&gt;https://github.com/rodion-zheludkov/rodion-zheludkov.github.io&lt;/a&gt;.&lt;/p&gt;
+  <content type="html">&lt;p&gt;The whole blog is static using &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; platform. You can check raw content here &lt;a href=&quot;&quot;&gt;https://github.com/rodion-zheludkov/blog&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt; formatting is used in raw source.&lt;/p&gt;
 

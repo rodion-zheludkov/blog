@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CAP теорема &#8211; Rodion's blog</title>
+<meta name="description" content="Понятное объяснение, что есть CAP, в контексте распределенных систем.">
+<meta name="keywords" content="it, bigdata">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+
+</head>
+<body>
+
+<div class="container-fluid main">
+    <div class="main-wrap">
+        <div class="main-left">
+            <h1>CAP теорема</h1>
+<p>CAP теорема обычно всплывает в обсуждении распределенных систем и звучит она так “Between consistency (C), availability (A) and partition tolerance (P) you can pick any two. It is impossible to achieve all three”. Обычно в такой формулировке не очень понятно, что такое вообще partition tolerance и что за система (CA) получится если мы от него откажемся? Для начала рассмотрим более детальные определения каждой части</p>
+
+<ol>
+  <li>Consistency. Или согласованность. Если данные записаны на кластер, то все следующие чтения эти данные увидят. Самая сильная форма согласованности - данные по всему кластере одинаковые и их можно читать/писать с любой машины и результат будет всегда одинаковый.</li>
+  <li>Availability. Кластер доступен даже если сколько-то машин выпало.</li>
+  <li>Partition-tolerance. Кластер продолжает работать, даже если есть сетевая ошибка, которая разделит машины на две непустые группы, которые не могут общаться между собой.</li>
+</ol>
+
+<p>С такими определениями становится совсем не понятно, что значит система в которой нет partition tolerance (CA). Есть другое определение P из оригинальной статьи: “In order to model partition tolerance, the network will be allowed to lose arbitrarily many messages sent from one node to another”. То есть P это не свойство кластера, а свойство сети, которое нельзя игнорировать. В таком случае CAP теорема должна звучать примерно так: в распределенной системе во время образования network partition можно либо потерять согласованность (потому что разрешаем апдейты на обе части кластера), либо потерять доступность (потому что выключаем кластер пока сетевая проблема не устранена). </p>
+
+<p>Другими словами CA система - система в которой данные согласованы и кластер доступен пока не произойдет сетевой сбой (P). Если сбой произойдет то данные разъедутся и не восстановятся, когда сетевая проблема будет устранена. Работоспособной такая система может быть, если сетевых проблем не бывает, то есть когда система - большой монолитный объект, который если падает, то падает целиком. Но такая система по определению не является распределенной.</p>
+
+<h2 id="cp-and-ap">CP and AP</h2>
+
+<ol>
+  <li>CP. Данные согласованы по всем нодам. Если происходит P - кластер останавливает все операции, которые работали с данными, задетыми проблемой.</li>
+  <li>AP. При P ноды остаются онлайн и синхронизируют данные позже, когда проблема будет решена. Не гарантируется, что на всех нодах будут те же данные (во время или даже после того как проблема устранена). </li>
+</ol>
+
+<p>CP и AP системы асимметричны</p>
+
+<ol>
+  <li>CP. Доступностью жертвуют только тогда, когда возникает проблема</li>
+  <li>AP. Согласованностью жертвуют всегда. В лучше случае система может гарантировать только “eventual consistency”. В этом случае иногда система может вернуть данные отличные от только что записанных. Плюс клиенты, читающие данные по одному ключу, могут получать разные результаты. Может получится так, что часть апдейтов не доедет до всех реплик или в одну реплику приедут конфликтующие апдейты. Решение таких конфликтов остается на совести системы. Можно пытаться мержить такие апдейты, например, используя vector clock алгоритм, в кассандре это называется read repair. </li>
+</ol>
+
+<p>Надо понимать, что в реальности согласованность и доступность не всегда полные. Например, HDFS, по умолчанию пишет в три ноды, если все они сломаются, то система станет недоступной. Zookeeper отвечает на запись ОК, если больше половины кворума сказали ОК, он станет недоступным если выпадут больше половины машин.</p>
+
+<h2 id="latency">Latency</h2>
+
+<p>Одна из проблема с CAP подходом состоит в том, что из рассмотрения выкинули задержки. Иногда распределенные системы жертвуют согласованностью не для того, чтобы улучшить доступность, а чтобы снизить время ответа. Например можно отказаться от согласованности в пользу так называемой “timeline consistency”, в этом случае реплики могут быть не согласованы между собой, но есть гарантия того, что апдейты будут применяться в одном порядке ко всем репликам. </p>
+
+<p>Для гарантии согласованности надо, до того как ответить ОК на запись, убедится, что сколько-то реплик получили и применили это запись. На это нужно время. Если говорить ОК сразу после записи в мастер-реплику, а репликацию делать асинхронно - задержки уменьшатся. Но в этом случае пострадает и доступность, если выпала мастер-реплика для части данных, то эти данные становятся недоступны для обновления. </p>
+
+<h2 id="pacelc">PACELC</h2>
+
+<p>Умные люди придумали альтернативу CAP, которая учитывает все выше перечисленное и облегчает понимание архитектуры распределенной системы. </p>
+
+<p>PACELC — if there is a partition (P) how does the system trade off between availability and consistency (A and C); else (E) when the system is running as normal in the absence of partitions, how does the system trade off between latency (L) and consistency (C)?</p>
+
+<p>Кассандра например PA/EL. Если есть P, то выбираем доступность. Если сетевых проблем нет - жертвуем согласованностью ради скорости.</p>
+
+<p>ACID базы данных PC/EC. Если реплики не могут общаться - все записи запрещаются. Пока все реплики не скажут ОК, данные не запишутся - жертвуем скоростью.</p>
+
+<h2 id="references">References</h2>
+
+<p>Пост родился в попытках разобраться с сабжем и по сути является переработкой с переводом и компановкой следующих статей:</p>
+
+<ol>
+  <li><a href="">http://dbmsmusings.blogspot.ru/2010/04/problems-with-cap-and-yahoos-little.html</a></li>
+  <li><a href="">http://blog.cloudera.com/blog/2010/04/cap-confusion-problems-with-partition-tolerance/</a></li>
+  <li><a href="">http://cacm.acm.org/blogs/blog-cacm/83396-errors-in-database-systems-eventual-consistency-and-the-cap-theorem/fulltext</a></li>
+  <li><a href="">http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html</a></li>
+  <li><a href="">http://stackoverflow.com/questions/12346326/nosql-cap-theorem-availability-and-partition-toleranc</a></li>
+</ol>
+
+
+        </div>
+        <div class="main-right">
+            <h3><a href="/">Rodion's blog</a></h3>
+<small>put it on the cloud and kill it with fire</small>
+<div>
+    <b>Tags</b>
+    <ul>
+        
+        <li><a href="/tags/it">it</a></li>
+        
+        <li><a href="/tags/ml">ml</a></li>
+        
+        <li><a href="/tags/bigdata">bigdata</a></li>
+        
+    </ul>
+</div>
+
+<div>
+    <b>Connect</b>
+    <ul>
+        
+        <li><a href="http://linkedin.com/in/rzheludkov" target="_blank"><i class="icon-linkedin"></i> LinkedIn</a></li>
+        
+        
+        <li><a href="http://facebook.com/rodion.zheludkov" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
+        
+    </ul>
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$']]
+    },
+    showMathMenu: false,
+    showMathMenuMSIE: false
+});
+</script>         
+
+</body>
+</html>

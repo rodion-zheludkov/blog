@@ -5,7 +5,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-03-22T12:13:25+03:00</updated>
+<updated>2015-03-22T20:41:03+03:00</updated>
 <id>/</id>
 <author>
   <name>Rodion</name>
@@ -15,11 +15,82 @@
 
 
 <entry>
+  <title type="html"><![CDATA[CAP теорема]]></title>
+  <link rel="alternate" type="text/html" href="/cap" />
+  <id>/cap</id>
+  <published>2015-03-22T00:00:00+03:00</published>
+  <updated>2015-03-22T00:00:00+03:00</updated>
+  <author>
+    <name>Rodion</name>
+    <uri></uri>
+    <email>rodion.zheludkov@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;CAP теорема обычно всплывает в обсуждении распределенных систем и звучит она так “Between consistency (C), availability (A) and partition tolerance (P) you can pick any two. It is impossible to achieve all three”. Обычно в такой формулировке не очень понятно, что такое вообще partition tolerance и что за система (CA) получится если мы от него откажемся? Для начала рассмотрим более детальные определения каждой части&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Consistency. Или согласованность. Если данные записаны на кластер, то все следующие чтения эти данные увидят. Самая сильная форма согласованности - данные по всему кластере одинаковые и их можно читать/писать с любой машины и результат будет всегда одинаковый.&lt;/li&gt;
+  &lt;li&gt;Availability. Кластер доступен даже если сколько-то машин выпало.&lt;/li&gt;
+  &lt;li&gt;Partition-tolerance. Кластер продолжает работать, даже если есть сетевая ошибка, которая разделит машины на две непустые группы, которые не могут общаться между собой.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;С такими определениями становится совсем не понятно, что значит система в которой нет partition tolerance (CA). Есть другое определение P из оригинальной статьи: “In order to model partition tolerance, the network will be allowed to lose arbitrarily many messages sent from one node to another”. То есть P это не свойство кластера, а свойство сети, которое нельзя игнорировать. В таком случае CAP теорема должна звучать примерно так: в распределенной системе во время образования network partition можно либо потерять согласованность (потому что разрешаем апдейты на обе части кластера), либо потерять доступность (потому что выключаем кластер пока сетевая проблема не устранена). &lt;/p&gt;
+
+&lt;p&gt;Другими словами CA система - система в которой данные согласованы и кластер доступен пока не произойдет сетевой сбой (P). Если сбой произойдет то данные разъедутся и не восстановятся, когда сетевая проблема будет устранена. Работоспособной такая система может быть, если сетевых проблем не бывает, то есть когда система - большой монолитный объект, который если падает, то падает целиком. Но такая система по определению не является распределенной.&lt;/p&gt;
+
+&lt;h2 id=&quot;cp-and-ap&quot;&gt;CP and AP&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;CP. Данные согласованы по всем нодам. Если происходит P - кластер останавливает все операции, которые работали с данными, задетыми проблемой.&lt;/li&gt;
+  &lt;li&gt;AP. При P ноды остаются онлайн и синхронизируют данные позже, когда проблема будет решена. Не гарантируется, что на всех нодах будут те же данные (во время или даже после того как проблема устранена). &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;CP и AP системы асимметричны&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;CP. Доступностью жертвуют только тогда, когда возникает проблема&lt;/li&gt;
+  &lt;li&gt;AP. Согласованностью жертвуют всегда. В лучше случае система может гарантировать только “eventual consistency”. В этом случае иногда система может вернуть данные отличные от только что записанных. Плюс клиенты, читающие данные по одному ключу, могут получать разные результаты. Может получится так, что часть апдейтов не доедет до всех реплик или в одну реплику приедут конфликтующие апдейты. Решение таких конфликтов остается на совести системы. Можно пытаться мержить такие апдейты, например, используя vector clock алгоритм, в кассандре это называется read repair. &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Надо понимать, что в реальности согласованность и доступность не всегда полные. Например, HDFS, по умолчанию пишет в три ноды, если все они сломаются, то система станет недоступной. Zookeeper отвечает на запись ОК, если больше половины кворума сказали ОК, он станет недоступным если выпадут больше половины машин.&lt;/p&gt;
+
+&lt;h2 id=&quot;latency&quot;&gt;Latency&lt;/h2&gt;
+
+&lt;p&gt;Одна из проблема с CAP подходом состоит в том, что из рассмотрения выкинули задержки. Иногда распределенные системы жертвуют согласованностью не для того, чтобы улучшить доступность, а чтобы снизить время ответа. Например можно отказаться от согласованности в пользу так называемой “timeline consistency”, в этом случае реплики могут быть не согласованы между собой, но есть гарантия того, что апдейты будут применяться в одном порядке ко всем репликам. &lt;/p&gt;
+
+&lt;p&gt;Для гарантии согласованности надо, до того как ответить ОК на запись, убедится, что сколько-то реплик получили и применили это запись. На это нужно время. Если говорить ОК сразу после записи в мастер-реплику, а репликацию делать асинхронно - задержки уменьшатся. Но в этом случае пострадает и доступность, если выпала мастер-реплика для части данных, то эти данные становятся недоступны для обновления. &lt;/p&gt;
+
+&lt;h2 id=&quot;pacelc&quot;&gt;PACELC&lt;/h2&gt;
+
+&lt;p&gt;Умные люди придумали альтернативу CAP, которая учитывает все выше перечисленное и облегчает понимание архитектуры распределенной системы. &lt;/p&gt;
+
+&lt;p&gt;PACELC — if there is a partition (P) how does the system trade off between availability and consistency (A and C); else (E) when the system is running as normal in the absence of partitions, how does the system trade off between latency (L) and consistency (C)?&lt;/p&gt;
+
+&lt;p&gt;Кассандра например PA/EL. Если есть P, то выбираем доступность. Если сетевых проблем нет - жертвуем согласованностью ради скорости.&lt;/p&gt;
+
+&lt;p&gt;ACID базы данных PC/EC. Если реплики не могут общаться - все записи запрещаются. Пока все реплики не скажут ОК, данные не запишутся - жертвуем скоростью.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;Пост родился в попытках разобраться с сабжем и по сути является переработкой с переводом и компановкой следующих статей:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://dbmsmusings.blogspot.ru/2010/04/problems-with-cap-and-yahoos-little.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://blog.cloudera.com/blog/2010/04/cap-confusion-problems-with-partition-tolerance/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://cacm.acm.org/blogs/blog-cacm/83396-errors-in-database-systems-eventual-consistency-and-the-cap-theorem/fulltext&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://stackoverflow.com/questions/12346326/nosql-cap-theorem-availability-and-partition-toleranc&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/cap&quot;&gt;CAP теорема&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on March 22, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
   <title type="html"><![CDATA[Principal Component Analysis]]></title>
   <link rel="alternate" type="text/html" href="/pca" />
   <id>/pca</id>
-  <published>2014-02-13T00:00:00+04:00</published>
-  <updated>2014-02-13T00:00:00+04:00</updated>
+  <published>2014-08-13T00:00:00+04:00</published>
+  <updated>2014-08-13T00:00:00+04:00</updated>
   <author>
     <name>Rodion</name>
     <uri></uri>
@@ -86,7 +157,7 @@
 &lt;/ol&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/pca&quot;&gt;Principal Component Analysis&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on February 13, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/pca&quot;&gt;Principal Component Analysis&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on August 13, 2014.&lt;/p&gt;</content>
 </entry>
 
 
@@ -94,8 +165,8 @@
   <title type="html"><![CDATA[Онлайн деревья решений]]></title>
   <link rel="alternate" type="text/html" href="/decision-trees" />
   <id>/decision-trees</id>
-  <published>2014-01-21T00:00:00+04:00</published>
-  <updated>2014-01-21T00:00:00+04:00</updated>
+  <published>2014-06-21T00:00:00+04:00</published>
+  <updated>2014-06-21T00:00:00+04:00</updated>
   <author>
     <name>Rodion</name>
     <uri></uri>
@@ -196,7 +267,7 @@
 
 &lt;p&gt;Что еще бывает в онлайне. Адаптивные деревья решений - используются, когда распределение входных данных меняется с течением времени. Ансамбли дервеьев на манер оффлайн тоже можно строить, но со своими ограничениями. Это вообще целая отдельная тема.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/decision-trees&quot;&gt;Онлайн деревья решений&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on January 21, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/decision-trees&quot;&gt;Онлайн деревья решений&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on June 21, 2014.&lt;/p&gt;</content>
 </entry>
 
 
@@ -204,8 +275,8 @@
   <title type="html"><![CDATA[DIY blog]]></title>
   <link rel="alternate" type="text/html" href="/diy" />
   <id>/diy</id>
-  <published>2014-01-04T00:00:00+04:00</published>
-  <updated>2014-01-04T00:00:00+04:00</updated>
+  <published>2014-06-04T00:00:00+04:00</published>
+  <updated>2014-06-04T00:00:00+04:00</updated>
   <author>
     <name>Rodion</name>
     <uri></uri>
@@ -217,7 +288,7 @@
 
 &lt;p&gt;Formulas are done with &lt;a href=&quot;http://www.mathjax.org/&quot;&gt;Mathjax&lt;/a&gt;.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/diy&quot;&gt;DIY blog&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on January 04, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/diy&quot;&gt;DIY blog&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on June 04, 2014.&lt;/p&gt;</content>
 </entry>
 
 </feed>

@@ -1,0 +1,45 @@
+@import "bootstrap-compass";
+@import "bootstrap-variables";
+@import "bootstrap";
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+html, body {
+    height: 100%;
+    color: #000;
+    line-height: 1.5em;
+    font-size: 1.2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.4em;
+}
+
+.main {
+    margin-top: 30px;
+
+    .list {
+        margin-bottom: 0;
+    }
+    &-wrap {
+       @include make-row();
+    }
+    &-left {
+        @include make-xs-column(9);
+        padding-right: 50px;
+        padding-left: 30px;
+    }
+    &-right {
+        @include make-xs-column(3);
+        div {
+            margin-top: 15px;
+        }    
+    }
+}
+
+

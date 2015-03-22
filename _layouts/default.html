@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+{% include _head.html %}
+</head>
+<body>
+
+<div class="container-fluid main">
+    <div class="main-wrap">
+        <div class="main-left">
+            {{ content }}
+        </div>
+        <div class="main-right">
+            {% include _author-bio.html %}
+        </div>
+    </div>
+</div>
+
+{% include _scripts.html %}         
+
+</body>
+</html>

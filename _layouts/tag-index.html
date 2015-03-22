@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+{% for post in site.tags[page.tag] %}  
+<article>
+  <h3>
+    <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+  </h3>
+  <p>
+    {{ post.description }}
+  </p>
+</article>
+{% endfor %}

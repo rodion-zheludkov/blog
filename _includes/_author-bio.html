@@ -1,0 +1,23 @@
+<h3><a href="/">{{ site.title }}</a></h3>
+<small>put it on the cloud and kill it with fire</small>
+<div>
+    <b>Tags</b>
+    <ul>
+        {% for tag in site.tags %}
+        <li><a href="/tags/{{tag | first}}">{{ tag | first }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <b>Connect</b>
+    <ul>
+        {% if site.owner.linkedin %}
+        <li><a href="http://linkedin.com/in/{{ site.owner.linkedin }}" target="_blank"><i class="icon-linkedin"></i> LinkedIn</a></li>
+        {% endif %}
+        {% if site.owner.facebook %}
+        <li><a href="http://facebook.com/{{ site.owner.facebook }}" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
+        {% endif %}
+    </ul>
+</div>
+

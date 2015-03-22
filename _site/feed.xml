@@ -5,7 +5,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-03-22T20:45:38+03:00</updated>
+<updated>2015-03-22T20:48:40+03:00</updated>
 <id>/</id>
 <author>
   <name>Rodion</name>
@@ -74,11 +74,11 @@
 &lt;p&gt;Пост родился в попытках разобраться с сабжем и по сути является переработкой с переводом и компановкой следующих статей:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://dbmsmusings.blogspot.ru/2010/04/problems-with-cap-and-yahoos-little.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://blog.cloudera.com/blog/2010/04/cap-confusion-problems-with-partition-tolerance/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://cacm.acm.org/blogs/blog-cacm/83396-errors-in-database-systems-eventual-consistency-and-the-cap-theorem/fulltext&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot;&gt;http://stackoverflow.com/questions/12346326/nosql-cap-theorem-availability-and-partition-toleranc&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dbmsmusings.blogspot.ru/2010/04/problems-with-cap-and-yahoos-little.html&quot;&gt;http://dbmsmusings.blogspot.ru/2010/04/problems-with-cap-and-yahoos-little.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.cloudera.com/blog/2010/04/cap-confusion-problems-with-partition-tolerance/&quot;&gt;http://blog.cloudera.com/blog/2010/04/cap-confusion-problems-with-partition-tolerance/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://cacm.acm.org/blogs/blog-cacm/83396-errors-in-database-systems-eventual-consistency-and-the-cap-theorem/fulltext&quot;&gt;http://cacm.acm.org/blogs/blog-cacm/83396-errors-in-database-systems-eventual-consistency-and-the-cap-theorem/fulltext&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html&quot;&gt;http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/12346326/nosql-cap-theorem-availability-and-partition-toleranc&quot;&gt;http://stackoverflow.com/questions/12346326/nosql-cap-theorem-availability-and-partition-toleranc&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
   &lt;p&gt;&lt;a href=&quot;/cap&quot;&gt;CAP теорема&lt;/a&gt; was originally published by Rodion at &lt;a href=&quot;&quot;&gt;Rodion's blog&lt;/a&gt; on March 22, 2015.&lt;/p&gt;</content>
@@ -282,7 +282,7 @@
     <uri></uri>
     <email>rodion.zheludkov@gmail.com</email>
   </author>
-  <content type="html">&lt;p&gt;The whole blog is static using &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; platform. You can check raw content here &lt;a href=&quot;&quot;&gt;https://github.com/rodion-zheludkov/blog&lt;/a&gt;.&lt;/p&gt;
+  <content type="html">&lt;p&gt;The whole blog is static using &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; platform. You can check raw content here &lt;a href=&quot;https://github.com/rodion-zheludkov/blog&quot;&gt;https://github.com/rodion-zheludkov/blog&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt; formatting is used in raw source.&lt;/p&gt;
 

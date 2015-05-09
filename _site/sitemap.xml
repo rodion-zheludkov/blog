@@ -6,6 +6,10 @@
     
     
     <url>
+        <loc>/microsoft-experiments</loc>
+    </url>
+    
+    <url>
         <loc>/cap</loc>
     </url>
     

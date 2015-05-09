@@ -1,10 +1,11 @@
 ---
 layout: post
 title:  "Про интересные результаты A/B тестирования"
+description: По статье о A/B тестировании в Microsoft.
 tags: it
 ---
 
-Ребята из Microsoft написали отличную статью про A/B тестирование, онлайн эксперименты и вот это всё. Статья тут: (http://www.exp-platform.com/documents/puzzlingoutcomesincontrolledexperiments.pdf)[http://www.exp-platform.com/documents/puzzlingoutcomesincontrolledexperiments.pdf]. Короткая выжимка ниже.
+Ребята из Microsoft написали отличную статью про A/B тестирование, онлайн эксперименты и вот это всё. Статья тут: [http://www.exp-platform.com/documents/puzzlingoutcomesincontrolledexperiments.pdf](http://www.exp-platform.com/documents/puzzlingoutcomesincontrolledexperiments.pdf). Короткая выжимка ниже.
 
 ## Некорректные KPI
 

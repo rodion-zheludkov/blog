@@ -1,0 +1,282 @@
+---
+layout: empty
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Свадьба Родиона и Тани</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{{ site.url }}/assets/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link href="{{ site.url }}/assets/css/4-col-portfolio.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}/assets/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+    <link rel="stylesheet" href="{{ site.url }}/assets/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ site.url }}/assets/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+</head>
+
+<body>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <ul class="nav nav-pills" style="margin: 5px 12px">
+                {% if page.wedding_tag == "video" %}
+                <li class="active"><a href="{{ site.url }}/wedding/video.html">Видео</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/video.html">Видео</a></li>
+                {% endif %}
+                
+                {% if page.wedding_tag == "all" %}
+                <li class="active"><a href="{{ site.url }}/wedding/all-1.html">Все подряд</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/all-1.html">Все подряд</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "sbori" %}
+                <li class="active"><a href="{{ site.url }}/wedding/sbori-1.html">Сборы</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/sbori-1.html">Сборы</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "we" %}
+                <li class="active"><a href="{{ site.url }}/wedding/we-1.html">Родион и Таня</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/we-1.html">Родион и Таня</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "priezd" %}
+                <li class="active"><a href="{{ site.url }}/wedding/priezd-1.html">Приезд гостей</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/priezd-1.html">Приезд гостей</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "ceremony" %}
+                <li class="active"><a href="{{ site.url }}/wedding/ceremony-1.html">Церемония</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/ceremony-1.html">Церемония</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "party" %}
+                <li class="active"><a href="{{ site.url }}/wedding/party-1.html">Вечерина</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/party-1.html">Вечерина</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "honeymoon" %}
+                <li class="active"><a href="{{ site.url }}/wedding/honeymoon-1.html">Honeymoon</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/honeymoon-1.html">Honeymoon</a></li>
+                {% endif %}
+
+                <li><a href="https://yadi.sk/d/-iFgfne3ikUno">Одним архивом</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <ul class="nav nav-pills" style="margin: 5px 12px">
+                {% if page.wedding_tag == "parents" %}
+                <li class="active"><a href="{{ site.url }}/wedding/parents-1.html">Родители</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/parents-1.html">Родители</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "oksana" %}
+                <li class="active"><a href="{{ site.url }}/wedding/oksana-1.html">Оксана</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/oksana-1.html">Оксана</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "zhenya_ulya" %}
+                <li class="active"><a href="{{ site.url }}/wedding/zhenya_ulya-1.html">Женя и Юля</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/zhenya_ulya-1.html">Женя и Юля</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "mitya" %}
+                <li class="active"><a href="{{ site.url }}/wedding/mitya-1.html">Митя</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/mitya-1.html">Митя</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "polina" %}
+                <li class="active"><a href="{{ site.url }}/wedding/polina-1.html">Полина</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/polina-1.html">Полина</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "moris" %}
+                <li class="active"><a href="{{ site.url }}/wedding/moris-1.html">Морис</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/moris-1.html">Морис</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "dima_natasha" %}
+                <li class="active"><a href="{{ site.url }}/wedding/dima_natasha-1.html">Дима и Наташа</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/dima_natasha-1.html">Дима и Наташа</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "anya" %}
+                <li class="active"><a href="{{ site.url }}/wedding/anya-1.html">Аня</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/anya-1.html">Аня</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "kostas_lera" %}
+                <li class="active"><a href="{{ site.url }}/wedding/kostas_lera-1.html">Костя и Лера</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/kostas_lera-1.html">Костя и Лера</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "roma" %}
+                <li class="active"><a href="{{ site.url }}/wedding/roma-1.html">Рома</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/roma-1.html">Рома</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "sergey" %}
+                <li class="active"><a href="{{ site.url }}/wedding/sergey-1.html">Серега</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/sergey-1.html">Серега</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "sasha_katya" %}
+                <li class="active"><a href="{{ site.url }}/wedding/sasha_katya-1.html">Саша и Катя</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/sasha_katya-1.html">Саша и Катя</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "marina_kolya" %}
+                <li class="active"><a href="{{ site.url }}/wedding/marina_kolya-1.html">Коля и Марина</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/marina_kolya-1.html">Коля и Марина</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "alena" %}
+                <li class="active"><a href="{{ site.url }}/wedding/alena-1.html">Алена</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/alena-1.html">Алена</a></li>
+                {% endif %}
+                
+                {% if page.wedding_tag == "sasha_anya" %}
+                <li class="active"><a href="{{ site.url }}/wedding/sasha_anya-1.html">Саша и Аня</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/sasha_anya-1.html">Саша и Аня</a></li>
+                {% endif %}
+                
+                {% if page.wedding_tag == "dima" %}
+                <li class="active"><a href="{{ site.url }}/wedding/dima-1.html">Дима</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/dima-1.html">Дима</a></li>
+                {% endif %}
+                
+                {% if page.wedding_tag == "zhenya_ulyai" %}
+                <li class="active"><a href="{{ site.url }}/wedding/zhenya_ulyai-1.html">Женя и Юля И</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/zhenya_ulyai-1.html">Женя и Юля И</a></li>
+                {% endif %}
+
+                {% if page.wedding_tag == "tort" %}
+                <li class="active"><a href="{{ site.url }}/wedding/tort-1.html">Тортик</a></li>
+                {% else %}
+                <li><a href="{{ site.url }}/wedding/tort-1.html">Тортик</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <hr/>
+        {{ content }}
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{{ site.url }}/assets/jquery/jquery-1.10.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ site.url }}/assets/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="{{ site.url }}/assets/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script type="text/javascript" src="{{ site.url }}/assets/fancybox/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="{{ site.url }}/assets/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <script type="text/javascript" src="{{ site.url }}/assets/fancybox/helpers/jquery.fancybox-media.js"></script>
+    <script type="text/javascript" src="{{ site.url }}/assets/fancybox/helpers/jquery.fancybox-thumbs.js"></script>
+ 
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var current_hash = '';
+
+        $(".fancybox")
+            .attr('rel', 'gallery')
+            .fancybox({
+                beforeShow : function() {
+                    // Change window hash
+                    window.location.hash = current_hash = $(this.element).attr('rel') + '-' + (this.index + 1);
+                },
+                beforeClose : function() {
+                    // Clear current hash,
+                    current_hash = false;
+                },
+                afterClose : function() {
+                    // Remove hash from location bar
+                    if ("pushState" in history) {
+                        history.pushState("", document.title, window.location.pathname);
+                    } else {
+                        window.location.hash = "";
+                    }
+                }
+            });
+
+        function check_hash() {
+            // Get current hash
+            var hash = window.location.hash.substr(1);
+
+            // and compare with current
+            if (hash && hash.length && hash !== current_hash) {
+                var rez     = hash.split('-');
+                var gallery = rez[0];
+                var index   = rez[1] -1;
+
+                // if gallery is already open, then navigate to current index
+                if ($.fancybox.isActive && $.fancybox.current.element.attr('rel') === gallery) {
+                    $.fancybox.jumpto( index );
+                } else {
+                    // open new gallery
+                    $("a[rel=" + gallery + "]").eq( index ).trigger('click');
+                }
+            } else if (!hash && current_hash) {
+                $.fancybox.close();
+            }
+        }
+
+        //Check hash if user navigates back/forward
+        $(window).bind('hashchange', function() {
+            check_hash();
+        });
+
+        //Check hash on page load
+        check_hash();
+    });
+    
+    </script>
+
+</body>
+
+</html>
